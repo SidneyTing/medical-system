@@ -1,0 +1,12 @@
+{
+    "java.project.sourcePaths": [
+        "src",
+        "lib"
+    ],
+    "java.project.outputPath": "bin",
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar",
+        "c:\\Users\\admin\\Downloads\\itextpdf-5.5.13.2.jar"
+    ],
+    
+}
