@@ -4,9 +4,6 @@
 # Build files
 bin/
 
-# Dependency files (if using Maven/Gradle, replace with respective entries)
-lib/
-
 # Compiled class file
 *.class
 
