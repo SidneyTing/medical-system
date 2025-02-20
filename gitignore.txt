@@ -1,3 +1,6 @@
+# Text files
+*.txt
+
 # IDE-specific files
 .vscode/
 
