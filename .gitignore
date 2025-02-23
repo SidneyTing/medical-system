@@ -1,5 +1,6 @@
 # Text files
 *.txt
+*.pdf
 
 # IDE-specific files
 .vscode/
