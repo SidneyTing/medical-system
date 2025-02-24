@@ -25,7 +25,6 @@ import com.itextpdf.text.pdf.PdfWriter;
 import com.itextpdf.text.pdf.draw.LineSeparator;
 
 public class PatFunctions {
-    // Patient Scanners
     public static Scanner scanner = new Scanner(System.in);
 
     private static AbstractInputHandler textHandler = new TextInputHandler();
