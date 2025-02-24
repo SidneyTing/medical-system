@@ -1,22 +1,20 @@
-import java.util.Scanner;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.FileNotFoundException;
+import java.nio.file.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.nio.file.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Scanner;
 
 public class ReqFunctions {
-    // Request Scanners
-    public static Scanner scanUID = new Scanner(System.in);
-    public static Scanner scanPUID = new Scanner(System.in);
-    public static Scanner scanRUID = new Scanner(System.in);
-    public static Scanner scanServCode = new Scanner(System.in);
-    public static Scanner scanResult = new Scanner(System.in);
-    public static Scanner scanEdit = new Scanner(System.in);
+    public static Scanner scanner = new Scanner(System.in);
+
+    private static AbstractInputHandler textHandler = new TextInputHandler();
+    private static AbstractInputHandler yesNoHandler = new YesNoInputHandler();
+    private static AbstractInputHandler servCodeHandler = new ServCodeInputHandler();
 
     /* LAB REQUEST METHODS */
     // Read Lab Requests txt files
@@ -211,7 +209,7 @@ public class ReqFunctions {
         String patUID;
 
         int found;
-        char choice;
+        String choice;
 
         delIndicator = ' ';  // empty
         delReason = "";  // empty
@@ -220,24 +218,12 @@ public class ReqFunctions {
             found = 0;
 
             // Patient's UID
-            do {
-                System.out.print("\nPatient's UID: ");
-                patUID = scanPUID.nextLine();
-
-                if (patUID.isEmpty()) {
-                    System.out.print("\nPlease enter an input.");
-                }
-            } while (patUID.isEmpty());
+            System.out.println("\nPatient's UID: ");
+            patUID = textHandler.requestInput();
 
             // Service Code
-            do {
-                System.out.print("Service Code: ");
-                servCode = scanServCode.nextLine();
-
-                if (servCode.isEmpty()) {
-                    System.out.print("\nPlease enter an input.\n");
-                }
-            } while (servCode.isEmpty());
+            System.out.println("\nService Code: ");
+            servCode = servCodeHandler.requestInput();
 
             for ( int i = 0; i < patients.size(); i++) {
                 if (patients.get(i).getPatUID().equals(patUID) && patients.get(i).getDelIndicator() != 'D') {
@@ -253,21 +239,16 @@ public class ReqFunctions {
             }
 
             if (found == 2) {
-                choice = 'N';
+                choice = "N";
+                
             } else {
-                System.out.print("\nNo record found.");
+                System.out.println("\nNo record found.");
 
                 // Repeat prompt
-                do {
-                    System.out.print("\nSearch again? [Y/N]: ");
-                    choice = GeneralObject.scanChoice.next().charAt(0);
-
-                    if (choice != 'Y' && choice != 'y' && choice != 'N' && choice != 'n') {
-                        System.out.print("\nInvalid input.");
-                    }
-                } while (choice != 'Y' && choice != 'y' && choice != 'N' && choice != 'n');
+                System.out.println("\nSearch again? [Y/N]: ");
+                choice = yesNoHandler.requestInput();
             }
-        } while (choice == 'Y' || choice == 'y');
+        } while (choice.equalsIgnoreCase("Y"));
 
         if (found == 2) {
             // Gets system date and time
@@ -282,25 +263,14 @@ public class ReqFunctions {
             reqDate = Long.parseLong(formattedDate);
             reqTime = Long.parseLong(formattedTime);
             
-            do {
-                System.out.print("Result: ");
-                result = scanResult.nextLine();
-
-                if (result.isEmpty()) {
-                    System.out.print("\nPlease enter an input.\n");
-                }
-            } while (result.isEmpty());
+            System.out.println("\nResult: ");
+            result = textHandler.requestInput();
 
             // Save record confirmation
-            do {
-                System.out.print("\nSave Laboratory Request? [Y/N]: ");
-                choice = GeneralObject.scanChoice.next().charAt(0);   
-                if (choice != 'Y' && choice != 'y' && choice != 'N' && choice != 'n') {
-                    System.out.print("\nInvalid input.");
-                }
-            } while (choice != 'Y' && choice != 'y' && choice != 'N' && choice != 'n');
+            System.out.println("\nSave Laboratory Request? [Y/N]: ");
+            choice = yesNoHandler.requestInput();
 
-            if (choice == 'Y' || choice == 'y') {
+            if (choice.equalsIgnoreCase("Y")) {
                 try {
                     FileWriter myWriter = new FileWriter(servCode + "_Requests.txt", true);
                     myWriter.write(reqUID + ";" + patUID + ";" + reqDate + ";" + reqTime + ";" + result + ";\n");
@@ -324,7 +294,7 @@ public class ReqFunctions {
     public static void editRequest(ArrayList<Service> services, ArrayList<Request> requests, int index) {
         int l;
         int m;
-        int choice = 0;
+        String choice = "";
 
         String reqServCode="";
         String tempReqUID;
@@ -339,31 +309,21 @@ public class ReqFunctions {
                 reqServCode = requests.get(l).getServCode();
 
                 // Result
-                do {
-                    System.out.print("\nNew Laboratory Result: ");
-                    editedResult = scanEdit.nextLine();  // new result
-                    if (editedResult.isEmpty()) {
-                        System.out.print("\nPlease enter an input.");
-                    }
-                } while (editedResult.isEmpty());
+                System.out.println("\nNew Laboratory Result: ");
+                editedResult = textHandler.requestInput();
 
                 // Update record confirmation
-                do {
-                    System.out.print("\nUpdate Request Record? [Y/N]: ");
-                    choice = GeneralObject.scanChoice.next().charAt(0);   
-                    if (choice != 'Y' && choice != 'y' && choice != 'N' && choice != 'n') {
-                        System.out.print("\nInvalid input.");
-                    }
-                } while (choice != 'Y' && choice != 'y' && choice != 'N' && choice != 'n');
+                System.out.println("\nUpdate Request Record? [Y/N]: ");
+                choice = yesNoHandler.requestInput();
 
-                if (choice == 'Y' || choice == 'y') {
+                if (choice.equalsIgnoreCase("Y")) {
                     requests.get(l).setResult(editedResult);  // changes result
                     reqFilePath = reqServCode + "_Requests.txt";
                 }
             }
         }
 
-        if (choice == 'Y' || choice == 'y') {
+        if (choice.equalsIgnoreCase("Y")) {
             // This portion deletes a txt file such as CAT_Requests.txt file and adds the exact same data but with the new result
             
             File File = new File(reqFilePath);
@@ -399,28 +359,17 @@ public class ReqFunctions {
     // Delete Lab Request
     public static void deleteRequest(ArrayList<Request> requests, int index) {
         String delReason;
-        int choice;
+        String choice;
 
         // Reason for Deletion
-        do {
-            System.out.print("\nReason for Deletion: ");
-            delReason = GeneralObject.scanDelReason.nextLine();
-
-            if (delReason.isEmpty()) {
-                System.out.print("\nPlease enter an input.");
-            }
-        } while (delReason.isEmpty());
+        System.out.println("\nReason for Deletion: ");
+        delReason = textHandler.requestInput();
 
         // Delete record confirmation
-        do {
-            System.out.print("\nDelete Lab Request Record? This action cannot be undone. [Y/N]: ");
-            choice = GeneralObject.scanChoice.next().charAt(0);
-            if (choice != 'Y' && choice != 'y' && choice != 'N' && choice != 'n') {
-                System.out.print("\nInvalid input.");
-            }
-        } while (choice != 'Y' && choice != 'y' && choice != 'N' && choice != 'n');
+        System.out.println("\nDelete Lab Request Record? This action cannot be undone. [Y/N]: ");
+        choice = yesNoHandler.requestInput();
 
-        if (choice == 'Y' || choice == 'y') {
+        if (choice.equalsIgnoreCase("Y")) {
             try {
                 File reqFile = new File(requests.get(index).getServCode() + "_Requests.txt");
                 File tempFile = new File("temp.txt");
@@ -554,14 +503,8 @@ public class ReqFunctions {
         ctr = 0;
 
         // Enter Request's UID or Patient's UID
-        do {
-            System.out.print("\nEnter the Request's UID or Patient's UID: ");
-            UID = scanUID.nextLine();
-
-            if (UID.isEmpty()) {
-                System.out.print("\nPlease enter an input.");
-            }
-        } while (UID.isEmpty());
+        System.out.println("\nEnter the Request's UID or Patient's UID: ");
+        UID = textHandler.requestInput();
 
         ArrayList<String> tempArr = new ArrayList<String>();
         ArrayList<Integer> indexArr = new ArrayList<Integer>();
@@ -615,7 +558,7 @@ public class ReqFunctions {
         }
 
         if (ctr < 1) {
-            System.out.print("\nNo record found.");
+            System.out.println("\nNo record found.");
             return index; // returns if no matches
         } else if (ctr == 1) {
             return index; // returns index of data in requests array if there is only 1 match
@@ -638,14 +581,8 @@ public class ReqFunctions {
 
         // This portion asks user to input RUID if there was more than 1 match in searchRequest
         if (count < -1) {
-            do {
-                System.out.print("\nEnter the Request's UID: ");
-                choice = scanResult.nextLine();
-    
-                if (choice.isEmpty()) {
-                    System.out.print("\nPlease enter an input.");
-                }
-            } while (choice.isEmpty());
+            System.out.println("\nEnter the Request's UID: ");
+            choice = textHandler.requestInput();
 
              for (i = 0; i < requests.size(); i++) {
                 if (choice.equals(requests.get(i).getReqUID())) {
@@ -654,7 +591,7 @@ public class ReqFunctions {
              }
 
              if (count == temp) {
-                System.out.print("\nNo record found.");
+                System.out.println("\nNo record found.");
                 count = -1;
              }
 
