@@ -4,22 +4,22 @@ public class Patient extends GeneralObject {
     private String firstName;
     private String lastName;
     private String middleName;
-    private long birthday;
-    private char gender;
+    private String birthday;
+    private String gender;
     private String address;
-    private long phoneNo;
-    private long nationalIdNo;
+    private String phoneNo;
+    private String nationalIdNo;
 
     public Patient(
         String patUID,
         String firstName,
         String lastName,
         String middleName,
-        long birthday,
-        char gender,
+        String birthday,
+        String gender,
         String address,
-        long phoneNo,
-        long nationalIdNo,
+        String phoneNo,
+        String nationalIdNo,
         char delIndicator,
         String delReason
     ) {
@@ -67,19 +67,19 @@ public class Patient extends GeneralObject {
         this.middleName = middleName;
     }
 
-    public long getBirthday() {
+    public String getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(long birthday) {
+    public void setBirthday(String birthday) {
         this.birthday = birthday;
     }
 
-    public char getGender() {
+    public String getGender() {
         return gender;
     }
 
-    public void setGender(char gender) {
+    public void setGender(String gender) {
         this.gender = gender;
     }
 
@@ -91,19 +91,19 @@ public class Patient extends GeneralObject {
         this.address = address;
     }
 
-    public long getPhoneNo() {
+    public String getPhoneNo() {
         return phoneNo;
     }
 
-    public void setPhoneNo(long phoneNo) {
+    public void setPhoneNo(String phoneNo) {
         this.phoneNo = phoneNo;
     }
 
-    public long getNationalIdNo() {
+    public String getNationalIdNo() {
         return nationalIdNo;
     }
 
-    public void setNationalIdNo(long nationalIdNo) {
+    public void setNationalIdNo(String nationalIdNo) {
         this.nationalIdNo = nationalIdNo;
     }
 
