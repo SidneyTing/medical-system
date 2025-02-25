@@ -506,8 +506,8 @@ public class ReqFunctions {
         System.out.println("\nEnter the Request's UID or Patient's UID: ");
         UID = textHandler.requestInput();
 
-        ArrayList<String> tempArr = new ArrayList<String>();
-        ArrayList<Integer> indexArr = new ArrayList<Integer>();
+        ArrayList<String> tempArr = new ArrayList<>();
+        ArrayList<Integer> indexArr = new ArrayList<>();
 
         for (i = 0; i < requests.size(); i++) {
 

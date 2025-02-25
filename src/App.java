@@ -44,12 +44,9 @@ public class App {
                 
                 // Edit Patient
                 } else if (choice.equals("2")) {
-                    int repeat = 0;  // initialize loop
-                    int index;
-
                     do {
                         System.out.print("\nEdit Patient");
-                        index = PatFunctions.selectPatient(patients);
+                        int index = PatFunctions.selectPatient(patients);
 
                         if (index != -1) {
                             int success = PatFunctions.editPatient(patients, index);
@@ -57,45 +54,28 @@ public class App {
                             if (success != -1) {
                                 System.out.println("\nDo you want to edit another patient? [Y/N] ");
                                 choice = yesNoHandler.requestInput();
-
-                                if (choice.equalsIgnoreCase("Y")) {
-                                    repeat = 1;
-                                } else {
-                                    repeat = 0;
-                                }
                             }
                         }    
-                    } while (repeat != 0 && index != -1);
+                    } while (choice.equalsIgnoreCase("Y"));
 
                 // Delete Patient
                 } else if (choice.equals("3")) {
-                    int repeat = 0;  // initialize loop
-                    int index;
-
                     do {
                         System.out.print("\nDelete Patient");
-                        index = PatFunctions.selectPatient(patients);
+                        int index = PatFunctions.selectPatient(patients);
 
                         if (index != -1) {
                             PatFunctions.deletePatient(patients, index);
 
                             System.out.println("\nDo you want to delete another patient? [Y/N] ");
                             choice = yesNoHandler.requestInput();
-
-                            if (choice.equalsIgnoreCase("Y")) {
-                                repeat = 1;
-                            } else {
-                                repeat = 0;
-                            }
                         }    
-                    } while (repeat != 0 && index != -1);
+                    } while (choice.equalsIgnoreCase("Y"));
                     
                 // Search Patient
                 } else if (choice.equals("4")) {
-                    int index;
-
                     System.out.print("\nSearch Patient");
-                    index = PatFunctions.selectPatient(patients);
+                    int index = PatFunctions.selectPatient(patients);
 
                     if (index != -1) {
                         PatFunctions.searchPatient(patients, requests, index);
@@ -113,63 +93,36 @@ public class App {
 
                 // Add Service
                 if (choice.equals("1")) {
-                    int repeat = 0;  // initialize loop
-
                     do {
                         ServFunctions.addService(services);
 
                         System.out.println("\nDo you want to add another service? [Y/N] ");
                         choice = yesNoHandler.requestInput();
-
-                        if (choice.equalsIgnoreCase("Y")) {
-                            repeat = 1;
-                        } else {
-                            repeat = 0;
-                        }
-                    } while (repeat != 0);
+                    } while (choice.equalsIgnoreCase("Y"));
                 
                 // Edit Service
                 } else if (choice.equals("2")) {
-                    int repeat = 0;  // initialize loop
-                    int success;
-
                     if (services.size() >= 1) {
                         do {
-                            success = ServFunctions.editService(services);
-
+                            int success = ServFunctions.editService(services);
                             if (success != -1) {
                                 System.out.println("\nDo you want to edit another service? [Y/N] ");
                                 choice = yesNoHandler.requestInput();
-                                
-                                if (choice.equalsIgnoreCase("Y")) {
-                                    repeat = 1;
-                                } else {
-                                    repeat = 0;
-                                }
                             }   
-                        } while (repeat != 0 && success != -1);
+                        } while (choice.equalsIgnoreCase("Y"));
                     } else {
                         System.out.println("No record found.");
                     }
 
                 // Delete Service
                 } else if (choice.equals("3")) {
-                    int repeat = 0;  // initialize loop
-
                     if (services.size() >= 1) {
                         do {
                             ServFunctions.deleteService(services);
 
                             System.out.println("\nDo you want to delete another serivce? [Y/N] ");
                             choice = yesNoHandler.requestInput();
-
-                            if (choice.equalsIgnoreCase("Y")) {
-                                repeat = 1;
-                            } else {
-                                repeat = 0;
-                            }
-                                
-                        } while (repeat != 0);
+                        } while (choice.equalsIgnoreCase("Y"));
 
                     } else {
                         System.out.println("No record found.");
@@ -177,22 +130,13 @@ public class App {
 
                 // Search Service
                 } else if (choice.equals("4")) {
-                    int repeat = 0;  // initialize loop
-
                     if (services.size() >= 1) {
                         do {
                             ServFunctions.searchService(services);
 
                             System.out.println("\nDo you want to search another service? [Y/N] ");
-                            choice = yesNoHandler.requestInput();
-
-                            if (choice.equalsIgnoreCase("Y")) {
-                                repeat = 1;
-                            } else {
-                                repeat = 0;
-                            }
-                                
-                        } while (repeat != 0);
+                            choice = yesNoHandler.requestInput();  
+                        } while (choice.equalsIgnoreCase("Y"));
                     }
                     
                     else {
@@ -212,28 +156,16 @@ public class App {
 
                 // Add Laboratory Request
                 if (choice.equals("1")) {
-                    int repeat = 0;  // initialize loop
-                    int success;
-
                     do {
-                        success = ReqFunctions.addRequest(patients, services, requests);
-
+                        int success = ReqFunctions.addRequest(patients, services, requests);
                         if (success != -1) {
                             System.out.println("\nDo you want to add another laboratory request? [Y/N] ");
                             choice = yesNoHandler.requestInput();
-
-                            if (choice.equalsIgnoreCase("Y")) {
-                                repeat = 1;
-                            } else {
-                                repeat = 0;
-                            }
                         }
-                    } while (repeat != 0 && success != -1);
+                    } while (choice.equalsIgnoreCase("Y"));
                 
                 // Edit Laboratory Request
                 } else if (choice.equals("2")) {
-                    int repeat = 0;  // initialize loop
-                    int index;
                     do {
                         System.out.print("\nRequest Update Options:\n[1] Result\n[X] Return to Main Menu\n\nSelect an update option: ");
                         choice = scanner.next().substring(0, 1);
@@ -244,47 +176,29 @@ public class App {
                         }
 
                         if (choice.equals("1")) {
-                            index = ReqFunctions.selectRequest(patients, services, requests);
-
+                            int index = ReqFunctions.selectRequest(patients, services, requests);
                             if (index != -1) {
                                 ReqFunctions.editRequest(services, requests, index);
                             }
 
                             System.out.println("\nDo you want to edit another request? [Y/N] ");
                             choice = yesNoHandler.requestInput();
-
-                            if (choice.equalsIgnoreCase("Y")) {
-                                repeat = 1;
-                            } 
-                            else {
-                                repeat = 0;
-                            }
                         }
 
-                    } while (repeat != 0);
+                    } while (choice.equalsIgnoreCase("Y"));
 
                 // Delete Laboratory Request
-                } else if (choice.equals("3")) {
-                    int repeat = 0;  // initialize loop
-                    int index;
-                    
+                } else if (choice.equals("3")) {                    
                     do {
                         System.out.print("\nDelete Request");
-                        index = ReqFunctions.selectRequest(patients, services, requests);
-
+                        int index = ReqFunctions.selectRequest(patients, services, requests);
                         if (index != -1) {
                             ReqFunctions.deleteRequest(requests, index);
                         }
                         
                         System.out.println("\nDo you want to delete another lab request? [Y/N] ");
                         choice = yesNoHandler.requestInput();
-
-                        if (choice.equalsIgnoreCase("Y")) {
-                            repeat = 1;
-                        } else {
-                            repeat = 0;
-                        }
-                    } while (repeat != 0);
+                    } while (choice.equalsIgnoreCase("Y"));
 
                 // Search Laboratory Request
                 } else if (choice.equals("4")) {
@@ -293,7 +207,6 @@ public class App {
 
                         System.out.println("\nDo you want to search another laboratory test result? [Y/N] ");
                         choice = yesNoHandler.requestInput();
-        
                     } while (choice.equalsIgnoreCase("Y"));
                 }
             }

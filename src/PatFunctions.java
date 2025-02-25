@@ -724,7 +724,7 @@ public class PatFunctions {
         String choice;
         int ctr = 0;
         String reqUID;
-        ArrayList<String> tempArr = new ArrayList<String>();
+        ArrayList<String> tempArr = new ArrayList<>();
 
         System.out.println("\nPatient's UID:\t\t" + patients.get(index).getPatUID());
         System.out.println("Name:\t\t\t" + patients.get(index).getLastName() + ", " + patients.get(index).getFirstName() + " " + patients.get(index).getMiddleName());
