@@ -245,7 +245,7 @@ public class ReqFunctions {
                 System.out.println("\nNo record found.");
 
                 // Repeat prompt
-                System.out.println("\nSearch again? [Y/N]: ");
+                System.out.println("\nSearch again? [Y/N] ");
                 choice = yesNoHandler.requestInput();
             }
         } while (choice.equalsIgnoreCase("Y"));
@@ -267,7 +267,7 @@ public class ReqFunctions {
             result = textHandler.requestInput();
 
             // Save record confirmation
-            System.out.println("\nSave Laboratory Request? [Y/N]: ");
+            System.out.println("\nSave Laboratory Request? [Y/N] ");
             choice = yesNoHandler.requestInput();
 
             if (choice.equalsIgnoreCase("Y")) {
@@ -313,7 +313,7 @@ public class ReqFunctions {
                 editedResult = textHandler.requestInput();
 
                 // Update record confirmation
-                System.out.println("\nUpdate Request Record? [Y/N]: ");
+                System.out.println("\nUpdate Request Record? [Y/N] ");
                 choice = yesNoHandler.requestInput();
 
                 if (choice.equalsIgnoreCase("Y")) {
@@ -366,7 +366,7 @@ public class ReqFunctions {
         delReason = textHandler.requestInput();
 
         // Delete record confirmation
-        System.out.println("\nDelete Lab Request Record? This action cannot be undone. [Y/N]: ");
+        System.out.println("\nDelete Lab Request Record? This action cannot be undone. [Y/N] ");
         choice = yesNoHandler.requestInput();
 
         if (choice.equalsIgnoreCase("Y")) {

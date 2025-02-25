@@ -401,7 +401,7 @@ public class PatFunctions {
             System.out.println("\nNo record found.");
 
             // Repeat prompt
-            System.out.println("\nSearch again? [Y/N]: ");
+            System.out.println("\nSearch again? [Y/N] ");
             choice = yesNoHandler.requestInput();
         } while (choice.equalsIgnoreCase("Y"));
 
@@ -436,7 +436,7 @@ public class PatFunctions {
         }
 
         // Update record confirmation
-        System.out.println("\nUpdate Patient Record? [Y/N]: ");
+        System.out.println("\nUpdate Patient Record? [Y/N] ");
         yn = yesNoHandler.requestInput();
 
         if (yn.equalsIgnoreCase("Y")) {
@@ -593,7 +593,7 @@ public class PatFunctions {
         delReason = textHandler.requestInput();
 
         // Delete record confirmation
-        System.out.println("\nDelete Patient Record? This action cannot be undone. [Y/N]: ");
+        System.out.println("\nDelete Patient Record? This action cannot be undone. [Y/N] ");
         choice = yesNoHandler.requestInput();
 
         if (choice.equalsIgnoreCase("Y")) {
@@ -752,7 +752,7 @@ public class PatFunctions {
             System.out.println("\nNo laboratory records found.");
             
         } else {
-            System.out.println("\nDo you want to print a laboratory test result? [Y/N]: ");
+            System.out.println("\nDo you want to print a laboratory test result? [Y/N] ");
             choice = yesNoHandler.requestInput();
     
             if (choice.equalsIgnoreCase("Y")) {
@@ -939,7 +939,7 @@ public class PatFunctions {
                     }
     
                     // Repeat prompt
-                    System.out.println("\nDo you want to print another laboratory test result? [Y/N]: ");
+                    System.out.println("\nDo you want to print another laboratory test result? [Y/N] ");
                     choice = yesNoHandler.requestInput();
                 } while (choice.equalsIgnoreCase("Y"));
             }  // Else return to main menu

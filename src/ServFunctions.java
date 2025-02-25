@@ -121,7 +121,7 @@ public class ServFunctions {
         price = floatHandler.requestInput();
 
         // Save record confirmation
-        System.out.println("\nSave Laboratory Service? [Y/N]: ");
+        System.out.println("\nSave Laboratory Service? [Y/N] ");
         choice = yesNoHandler.requestInput();
         
         if (choice.equalsIgnoreCase("Y")) {
@@ -148,19 +148,19 @@ public class ServFunctions {
     public static int editService(ArrayList<Service> services) {
         String choice;
 
-        System.out.println("\nServices cannot be edited.\nIf you would like to edit an existing service, this service will first be deleted, and a new service will be created.\n\nWould you like to proceed? [Y/N]: ");
+        System.out.println("\nServices cannot be edited.\nIf you would like to edit an existing service, this service will first be deleted, and a new service will be created.\nWould you like to proceed? [Y/N] ");
         choice = yesNoHandler.requestInput();
 
         if (choice.equalsIgnoreCase("Y")) {
             System.out.print("\nDelete Service");
-            int proceed = deleteService(services);
+            int success = deleteService(services);
 
-            if (proceed == -1) {
+            if (success == -1) {
                 return 1;
             }
 
             // Add service confirmation
-            System.out.println("\nThe program will now proceed to add a service. Continue? [Y/N]: ");
+            System.out.println("\nThe program will now proceed to add a service. Continue? [Y/N] ");
             choice = yesNoHandler.requestInput();
 
             if (choice.equalsIgnoreCase("Y")) {
@@ -238,7 +238,7 @@ public class ServFunctions {
             delReason = textHandler.requestInput();
 
             // Delete record confirmation
-            System.out.println("\nDelete Service Record? This action cannot be undone. [Y/N]: ");
+            System.out.println("\nDelete Service Record? This action cannot be undone. [Y/N] ");
             choice = yesNoHandler.requestInput();
 
             if (choice.equalsIgnoreCase("Y")) {
