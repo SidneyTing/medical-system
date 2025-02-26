@@ -1,3 +1,12 @@
+import InputHandler.AbstractInputHandler;
+import InputHandler.ServCodeInputHandler;
+import InputHandler.TextInputHandler;
+import InputHandler.YesNoInputHandler;
+import Model.GeneralObject;
+import Model.Patient;
+import Model.Request;
+import Model.Service;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;

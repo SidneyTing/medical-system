@@ -1,3 +1,5 @@
+package InputHandler;
+
 public class ServCodeInputHandler extends AbstractInputHandler {
     @Override
     protected boolean validate(String input) {

@@ -1,3 +1,5 @@
+package InputHandler;
+
 import java.util.Scanner;
 
 public abstract class AbstractInputHandler {

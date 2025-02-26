@@ -1,3 +1,7 @@
+package Model;
+
+import Model.GeneralObject;
+
 public class Service extends GeneralObject {
     // Service Variables
     private String servCode;

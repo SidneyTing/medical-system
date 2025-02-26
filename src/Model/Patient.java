@@ -1,3 +1,7 @@
+package Model;
+
+import Model.GeneralObject;
+
 public class Patient extends GeneralObject {
     // Patient Variables
     private String patUID;

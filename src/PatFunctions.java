@@ -9,6 +9,10 @@ import java.time.LocalDateTime;
 import java.io.FileOutputStream;
 
 // iText
+import InputHandler.*;
+import Model.GeneralObject;
+import Model.Patient;
+import Model.Request;
 import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.Element;

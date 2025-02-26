@@ -1,3 +1,5 @@
+package InputHandler;
+
 public class FloatInputHandler extends AbstractInputHandler {
     @Override
     protected boolean validate(String input) {

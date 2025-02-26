@@ -1,3 +1,7 @@
+package Model;
+
+import Model.GeneralObject;
+
 public class Request extends GeneralObject {
     // Request Variables
     private String reqUID;

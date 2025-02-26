@@ -1,3 +1,5 @@
+package InputHandler;
+
 public class MaleFemaleInputHandler extends AbstractInputHandler {
     @Override
     protected boolean validate(String input) {

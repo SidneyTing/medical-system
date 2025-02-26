@@ -1,3 +1,5 @@
+package InputHandler;
+
 public class LongInputHandler extends AbstractInputHandler {
     @Override
     protected boolean validate(String input) {
