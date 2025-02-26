@@ -13,6 +13,8 @@ import InputHandler.*;
 import Model.GeneralObject;
 import Model.Patient;
 import Model.Request;
+import SelectionStrategy.PatientSelectionContext;
+import SelectionStrategy.PatientSelectionStrategy;
 import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.Element;
@@ -35,6 +37,9 @@ public class PatFunctions {
     private static AbstractInputHandler yesNoHandler = new YesNoInputHandler();
     private static AbstractInputHandler longHandler = new LongInputHandler();
     private static AbstractInputHandler maleFemaleHandler = new MaleFemaleInputHandler();
+
+
+
 
     /* PATIENT METHODS */
     // Read Patients txt file
@@ -318,6 +323,8 @@ public class PatFunctions {
         String birthday;  // YYYYMMDD
         String nationalIdNo;
 
+        PatientSelectionContext context = new PatientSelectionContext();
+
         do {
             System.out.print("\nSelect a Patient:\n[1] Use Patient's UID\n[2] Use Last Name, First Name, Birthday\n[3] Use National ID No.\n[X] Return to Main Menu\n\nSelect an option: ");
             choice = scanner.next().substring(0, 1);
@@ -326,79 +333,15 @@ public class PatFunctions {
                 System.out.print("\nInvalid input.\nPlease select an option: ");
                 choice = scanner.next().substring(0, 1);
             }
-            
-            // Search using Patient's UID
-            if (choice.equals("1")) {
-                System.out.println("\nPatient's UID: ");
-                patUID = textHandler.requestInput();
 
-                for (int i = 0; i < patients.size(); i++) {
-                    if (patients.get(i).getPatUID().equals(patUID) && patients.get(i).getDelIndicator() != 'D') {
-                        return i;
-                    }
-                }
-
-            // Search using Last Name, First Name, Birthday
-            } else if (choice.equals("2")) {
-                int index = 0;
-                int found = 0;
-
-                // Last Name
-                System.out.println("\nLast Name: ");
-                lastName = textHandler.requestInput();
-
-                // First Name
-                System.out.println("\nFirst Name: ");
-                firstName = textHandler.requestInput();
-
-                // Birthday
-                System.out.println("\nBirthday (YYYYMMDD): ");
-                birthday = longHandler.requestInput();
-
-                for (int i = 0; i < patients.size(); i++) {
-                    if (patients.get(i).getDelIndicator() != 'D' && patients.get(i).getLastName().equals(lastName) && patients.get(i).getFirstName().equals(firstName) && patients.get(i).getBirthday().equals(birthday)) {
-                        found += 1;
-                        index = i;
-                    }
-                }
-
-                if (found == 1) {
-                    return index;
-
-                } else if (found > 1) {
-                    System.out.println("\nMultiple patient records found. Displaying them below...");
-
-                    System.out.print("\nPatient's UID\tLast Name\tFirst Name\tMiddle Name\tBirthday\tGender\tAddress\t\t\tPhone Number\tNational ID No.\n");
-                    for (int i = 0; i < patients.size(); i++) {
-                        if (patients.get(i).getDelIndicator() != 'D' && patients.get(i).getLastName().equals(lastName) && patients.get(i).getFirstName().equals(firstName) && patients.get(i).getBirthday().equals(birthday)) {
-                            System.out.print(patients.get(i).getPatUID() + "\t" + patients.get(i).getLastName() + "\t\t" + patients.get(i).getFirstName() + "\t\t" + patients.get(i).getMiddleName() + "\t\t" + patients.get(i).getBirthday() + "\t" + patients.get(i).getGender() + "\t" + patients.get(i).getAddress() + "\t" + patients.get(i).getPhoneNo() + "\t" + patients.get(i).getNationalIdNo() + "\n");
-                        }
-                    }
-
-                    // Enter Patient's UID
-                    System.out.println("\nSelect the Patient's UID that you want to display: ");
-                    patUID = textHandler.requestInput();
-
-                    for (int i = 0; i < patients.size(); i++) {
-                        if (patients.get(i).getPatUID().equals(patUID) && patients.get(i).getDelIndicator() != 'D') {
-                            return i;
-                        }
-                    }
-                }
-
-            // Search using National ID No.
-            } else if (choice.equals("3")) {
-                System.out.println("\nNational ID No.: ");
-                nationalIdNo = longHandler.requestInput();
-                
-                for (int i = 0; i < patients.size(); i++) {
-                    if (patients.get(i).getNationalIdNo().equals(nationalIdNo) && patients.get(i).getDelIndicator() != 'D') {
-                        return i;
-                    }
-                }
-
-            } else {
+            if (choice.equalsIgnoreCase("X")) {
                 return -1;
+            }
+
+            context.setStrategy(choice);
+            int result = context.execute(patients);
+            if (result != -1) {
+                return result;
             }
 
             // No record found
